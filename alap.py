@@ -1,22 +1,32 @@
-import os
+import os # os.path.getsize(elérési_út) megnézi az adott elérési úton található fájl méretét, mivel a rootban van a fájl így ide csak a fájl neve kellett
+import createuserlibrary
 
-eleresiut = "userek.txt" # Ez a fájl akár ÜRESEN is kell!!!
+eleresiut = "userek.txt" # Ez a fájl akár üresen is kell!!!
 sikereslogin = False
 
 while sikereslogin == False:
-    if os.path.getsize(eleresiut) == 0: # Regisztráció
+    if os.path.getsize(eleresiut) == 0: # Regisztráció, ha üres fájl
         print("Még nem létezik felhasználó, kérem hozzon létre egyet!")
         username = input("Kérem adjon meg egy felhasználónevet: ")
         password = input("Kérem adjon meg egy jelszót: ")
-        f = open(f"userek.txt", "a")
-        f.write(f"{username};{password}")
-        f.close()
+        with open(eleresiut, "a") as f:
+            f.write(f"{username};{password}\n")
+        print("Köszönjük a regisztrációt!")
+        createuserlibrary.konyvtarletrehozo(username)
         sikereslogin = True
-# Ezt még ki kell dolgozni
-# else:
-#     print("Kérem jelentkezzen be!")
-#     username = input("Kérem adja meg a felhasználónevet: ")
-#     password = input("Kérem adja meg a jelszót: ")
+    elif os.path.getsize(eleresiut) != 0: # Login, ha van user
+        print("Kérem jelentkezzen be!")
+        username = input("Kérem adja meg a felhasználónevet: ")
+        password = input("Kérem adja meg a jelszót: ")
+        beirtadat = f"{username};{password}"
+        with open(eleresiut, "r") as adatbazis:
+            sorok = adatbazis.readlines()
+            for sor in sorok:
+                if sor.strip() == beirtadat:
+                    print(f"Sikeres bejelentkezés, üdvözöljük {username}!")
+                    sikereslogin = True
+                else:
+                    print("Helytelen felhasználónév, vagy jelszó. Próbálja Újra!")
 
 
 
