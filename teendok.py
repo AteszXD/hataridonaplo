@@ -25,10 +25,10 @@ def fomenu():
             print("Sikeres kijelentkezés. Viszontlátásra!")
             break
         else:
-            print(".")
+            print("Helytelen szám.")
 
 def teendo_add():
-    teendo_hozz = input("Adja meg a teendő: ")
+    teendo_hozz = input("Adja meg a teendő leírását: ")
     hatar = input("Adja meg a teendő határidejét (ÉÉÉÉ-HH-NN): ")
     try:
         teendo_hatar = datetime.datetime.strptime(hatar, "%Y-%m-%d").date()
@@ -48,10 +48,43 @@ def teendo_add():
     print("Teendő sikeresen hozzáadva.")
 
 def teendok_megt():
-    pass
+    if not teendok:
+        print("Nincs teendő felírva.")
+        return
+
+    print("\nÖsszes teendők:")
+    for i, teendo in enumerate(teendok, 1):
+        print(f"{i}. {teendo['leírás']} | Határidő: {teendo['határidő']} | Státusz: {teendo['státusz']}")
+
 
 def teendo_modosit():
-    pass
+    teendok_megt()
+    try:
+        teendo_id = int(input("Adja meg a teendő számát: "))
+        if teendo_id < 1 or teendo_id > len(teendok):
+            print("Helytelen szám.")
+            return
+    except ValueError:
+        print("Kérem próbáljon egy másik számot.")
+        return
+
+    uj_statusz = input("Adja meg a státuszt (függőben/kész): ").lower()
+    teendok[teendo_id - 1]['státusz'] = uj_statusz
+    print("Teendő státusz frissítve.")
 
 def teendo_torlese():
-    pass
+    teendok_megt()
+    try:
+        teendo_id = int(input("Adja meg a törölni kívánt teendő számát: "))
+        if teendo_id < 1 or teendo_id > len(teendok):
+            print("Helytelen szám.")
+            return
+    except ValueError:
+        print("Kérem próbáljon egy másik számot.")
+        return
+
+    del teendok[teendo_id - 1]
+    print("Teendő törölve.")
+
+if __name__ == "__main__":
+    fomenu()
