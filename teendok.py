@@ -8,8 +8,9 @@ def fomenu():
         print("1. Teendő hozzáadása")
         print("2. Összes teendő megtekintése")
         print("3. Teendő módosítása")
-        print("4. Teendő törlése")
-        print("5. Kijelentkezés")
+        print("4. Aktuális hét feladatai")
+        print("5. Teendő törlése")
+        print("6. Kijelentkezés")
 
         muvelet = input("Válassza ki a műveletet: ")
 
@@ -20,8 +21,10 @@ def fomenu():
         elif muvelet == "3":
             teendo_modosit()
         elif muvelet == "4":
-            teendo_torlese()
+            aktualis_het()
         elif muvelet == "5":
+            teendo_torlese()
+        elif muvelet == "6":
             print("Sikeres kijelentkezés. Viszontlátásra!")
             break
         else:
@@ -71,6 +74,20 @@ def teendo_modosit():
     uj_statusz = input("Adja meg a státuszt (függőben/kész): ").lower()
     teendok[teendo_id - 1]['státusz'] = uj_statusz
     print("Teendő státusz frissítve.")
+
+def aktualis_het():
+    mai_nap = datetime.date.today()
+    het = mai_nap + datetime.timedelta(days=(6 - mai_nap.weekday()))  
+    
+    heti_teendok = [teendo for teendo in teendok if mai_nap <= teendo['határidő'] <= het]
+
+    if not heti_teendok:
+        print("Nincs teendő ezen a héten.")
+    else:
+        print("\nE heti teendők:")
+        for i, teendo in enumerate(heti_teendok, 1):
+            print(f"{i}. {teendo['leírás']} | Határidő: {teendo['határidő']} | Státusz: {teendo['státusz']}")
+
 
 def teendo_torlese():
     teendok_megt()
