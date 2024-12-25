@@ -1,9 +1,12 @@
 import os # os.path.getsize(elérési_út) megnézi az adott elérési úton található fájl méretét, mivel a rootban van a fájl így ide csak a fájl neve kellett
 import createuserlibrary
+import teendok
 
 eleresiut = "userek.txt" # Ez a fájl akár üresen is kell!!!
 sikereslogin = False
 
+
+# Bejelentkezés/Regisztráció
 while sikereslogin == False:
     if os.path.getsize(eleresiut) == 0: # Regisztráció, ha üres fájl
         print("Még nem létezik felhasználó, kérem hozzon létre egyet!")
@@ -28,6 +31,8 @@ while sikereslogin == False:
                 else:
                     print("Helytelen felhasználónév, vagy jelszó. Próbálja Újra!")
 
+# Teendők
+teendok.fomenu()
 
 
 
