@@ -1,6 +1,7 @@
 import datetime
 import teendokezelo
 import user
+import json
 
 teendok = []
 
@@ -54,13 +55,16 @@ def teendo_add():
     print("Teendő sikeresen hozzáadva.")
 
 def teendok_megt():
-    if not teendok:
-        print("Nincs teendő felírva.")
-        return
-
-    print("\nÖsszes teendők:")
-    for i, teendo in enumerate(teendok, 1):
-        print(f"{i}. {teendo['leírás']} | Határidő: {teendo['határidő']} | Státusz: {teendo['státusz']}")
+    username = user.user
+    with open(f"userek/{username}.json", "r", encoding="utf-8") as f:
+        teendokfile = json.load(f)
+        
+    if len(teendokfile) > 0:
+        print("\nÖsszes teendők:")
+        for i, teendo in enumerate(teendokfile, 1):
+            print(f"{i}. {teendo['leírás']} | Határidő: {teendo['határidő']} | Státusz: {teendo['státusz']}")
+    else:
+        print("Nincs teendő.")
 
 
 def teendo_modosit():

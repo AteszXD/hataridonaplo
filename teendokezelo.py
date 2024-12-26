@@ -2,7 +2,7 @@ import json
 
 # Betöltés
 def betolt(username):
-    with open(f"userek/{username}.json", "r", encoding="utf-8") as userdb:
+    with open(username, "r", encoding="utf-8") as userdb:
         return json.load(userdb)
     
 # Hozzáadás

@@ -40,7 +40,7 @@ while sikereslogin == False:
                     print(f"Sikeres bejelentkezés, üdvözöljük {username}!")
                     sikereslogin = True
                     user.user = username
-                    teendokezelo.betolt("userek/"f"{username}.json")
+                    teendokezelo.betolt(f"userek/{username}.json")
                 else:
                     print("Helytelen felhasználónév, vagy jelszó. Próbálja Újra!")
 
