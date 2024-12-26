@@ -69,18 +69,40 @@ def teendok_megt():
 
 def teendo_modosit():
     teendok_megt()
+    username = user.user
+    with open(f"userek/{username}.json", "r", encoding="utf-8") as f:
+        teendokfile = json.load(f)
     try:
         teendo_id = int(input("Adja meg a teendő számát: "))
-        if teendo_id < 1 or teendo_id > len(teendok):
+        if teendo_id < 1 or teendo_id > len(teendokfile):
             print("Helytelen szám.")
             return
     except ValueError:
         print("Kérem próbáljon egy másik számot.")
         return
 
-    uj_statusz = input("Adja meg a státuszt (függőben/kész): ").lower()
-    teendok[teendo_id - 1]['státusz'] = uj_statusz
-    print("Teendő státusz frissítve.")
+    # teendok[teendo_id - 1]['státusz'] = uj_statusz
+    teendo_hozz = input("Adja meg a teendő leírását: ")
+    hatar = input("Adja meg a teendő határidejét (ÉÉÉÉ-HH-NN): ")
+    try:
+        teendo_hatar = datetime.datetime.strptime(hatar, "%Y-%m-%d").date()
+    except ValueError:
+        print("Érvénytelen dátumformátum. Kérjük, használja a ÉÉÉÉ-HH-NN formátumot.")
+        return
+
+    statusz = input("Adja meg a státuszt (függőben/kész): ").lower()
+
+    teendo = {
+        'leírás': teendo_hozz,
+        'határidő': teendo_hatar,
+        'státusz': statusz
+    }
+    
+    teendokfile[teendo_id - 1] = teendo
+    with open(f"userek/{username}.json", "w", encoding="utf-8") as f:
+            json.dump(teendokfile, f, ensure_ascii=False, indent=4, default=str)
+
+    print("Teendő frissítve.")
 
 def aktualis_het():
     mai_nap = datetime.date.today()
