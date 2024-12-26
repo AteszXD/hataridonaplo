@@ -80,7 +80,6 @@ def teendo_modosit():
         print("Kérem próbáljon egy másik számot.")
         return
 
-    # teendok[teendo_id - 1]['státusz'] = uj_statusz
     teendo_hozz = input("Adja meg a teendő leírását: ")
     hatar = input("Adja meg a teendő határidejét (ÉÉÉÉ-HH-NN): ")
     try:
@@ -136,7 +135,7 @@ def teendo_torlese():
     del teendokfile[teendo_id - 1]
     with open(f"userek/{username}.json", "w", encoding="utf-8") as f:
         json.dump(teendokfile, f, ensure_ascii=False, indent=4, default=str)
-        
+
     print("Teendő törölve.")
 
 if __name__ == "__main__":

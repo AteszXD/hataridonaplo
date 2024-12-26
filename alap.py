@@ -4,11 +4,15 @@ import teendok
 import teendokezelo
 import user
 
-eleresiut = "userek.txt" # Ez a fájl akár üresen is kell!!!
 sikereslogin = False
+eleresiut = "userek.txt"
 
+if not os.path.exists(eleresiut):
+    f = open(eleresiut, "x")
+    f.close()
 
 # Bejelentkezés/Regisztráció
+
 while sikereslogin == False:
 
     if os.path.getsize(eleresiut) == 0: # Regisztráció, ha üres fájl
@@ -65,4 +69,4 @@ f.write("1234")
 f.close()
 """
 
-# felhasznalo[x] (pl. Bözsi) adati saját .txt fájlba lesznek tárolva, pl. Bözsi.txt
+# felhasznalo[x] (pl. Bözsi) adati saját .json fájlba lesznek tárolva, pl. Bözsi.json
