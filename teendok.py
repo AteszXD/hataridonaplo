@@ -1,4 +1,6 @@
 import datetime
+import teendokezelo
+import user
 
 teendok = []
 
@@ -48,6 +50,7 @@ def teendo_add():
     }
     
     teendok.append(teendo)
+    teendokezelo.hozzaadas(user.user, teendo)
     print("Teendő sikeresen hozzáadva.")
 
 def teendok_megt():
