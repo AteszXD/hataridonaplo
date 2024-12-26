@@ -66,7 +66,6 @@ def teendok_megt():
     else:
         print("Nincs teendő.")
 
-
 def teendo_modosit():
     teendok_megt()
     username = user.user
@@ -105,10 +104,13 @@ def teendo_modosit():
     print("Teendő frissítve.")
 
 def aktualis_het():
+    username = user.user
+    with open(f"userek/{username}.json", "r", encoding="utf-8") as f:
+        teendokfile = json.load(f)
     mai_nap = datetime.date.today()
     het = mai_nap + datetime.timedelta(days=(6 - mai_nap.weekday()))  
     
-    heti_teendok = [teendo for teendo in teendok if mai_nap <= teendo['határidő'] <= het]
+    heti_teendok = [teendo for teendo in teendokfile if mai_nap <= datetime.datetime.strptime(teendo['határidő'], "%Y-%m-%d").date() <= het]
 
     if not heti_teendok:
         print("Nincs teendő ezen a héten.")
@@ -117,19 +119,24 @@ def aktualis_het():
         for i, teendo in enumerate(heti_teendok, 1):
             print(f"{i}. {teendo['leírás']} | Határidő: {teendo['határidő']} | Státusz: {teendo['státusz']}")
 
-
 def teendo_torlese():
     teendok_megt()
+    username = user.user
+    with open(f"userek/{username}.json", "r", encoding="utf-8") as f:
+        teendokfile = json.load(f)
     try:
         teendo_id = int(input("Adja meg a törölni kívánt teendő számát: "))
-        if teendo_id < 1 or teendo_id > len(teendok):
+        if teendo_id < 1 or teendo_id > len(teendokfile):
             print("Helytelen szám.")
             return
     except ValueError:
         print("Kérem próbáljon egy másik számot.")
         return
 
-    del teendok[teendo_id - 1]
+    del teendokfile[teendo_id - 1]
+    with open(f"userek/{username}.json", "w", encoding="utf-8") as f:
+        json.dump(teendokfile, f, ensure_ascii=False, indent=4, default=str)
+        
     print("Teendő törölve.")
 
 if __name__ == "__main__":
