@@ -178,16 +178,17 @@ def surgos():
 
     for teendo in teendokfile:
         hatarido = datetime.datetime.strptime(teendo['határidő'], "%Y-%m-%d").date()
+        statusz = teendo['státusz']
         kulonbseg = (hatarido - mai_nap).days
 
-        if hatarido >= mai_nap:  # Csak a ma vagy későbbi határidőket vegyük figyelembe
-            if kulonbseg <= 1:  # Ma vagy holnap
+        if hatarido >= mai_nap and statusz != "kész":
+            if kulonbseg <= 1: 
                 surgosseg["halaszthatatlan"].append(teendo)
-            elif 2 <= kulonbseg <= 3:  # 2-3 napon belül
+            elif 2 <= kulonbseg <= 3:
                 surgosseg["surgos"].append(teendo)
-            elif 4 <= kulonbseg <= 7:  # 4-7 napon belül
+            elif 4 <= kulonbseg <= 7:
                 surgosseg["kevesbe_surgos"].append(teendo)
-            elif kulonbseg > 7:  # 7+ nap
+            elif kulonbseg > 7:
                 surgosseg["nem_surgos"].append(teendo)
 
     if any(surgosseg.values()):
