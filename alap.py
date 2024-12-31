@@ -54,6 +54,7 @@ teendok.fomenu()
 
 
 """
+# Ezt ki kéne majd szedni
 with open ('userek.txt','r',encoding='utf-8') as felhasznalok:
 
     for user in felhasznalok:
