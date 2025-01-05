@@ -16,5 +16,3 @@ def hozzaadas(username, teendo):
 
     with open(fajl, "w", encoding="utf-8") as f:
         json.dump(jelenadat, f, ensure_ascii=False, indent=4, default=str)
-
-# Ezt ki kéne majd szedni

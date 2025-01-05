@@ -11,5 +11,3 @@ def konyvtarletrehozo(username): # Személyes könytár létrehozása
             json.dump([], f, ensure_ascii=False, indent=4) # Amig nincs teendő hozzáadva addig legyen egy üres lista
     
     shutil.move(f"{username}.json", f"userek/{username}.json")
-
-# Ezt ki kéne majd szedni

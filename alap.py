@@ -48,26 +48,5 @@ while sikereslogin == False:
                 else:
                     print("Helytelen felhasználónév, vagy jelszó. Próbálja Újra!")
 
-# Teendők
+# Teendők, innen a teendok.py program megy
 teendok.fomenu()
-
-
-
-"""
-# Ezt ki kéne majd szedni
-with open ('userek.txt','r',encoding='utf-8') as felhasznalok:
-
-    for user in felhasznalok:
-        felhasznalo = user.strip().split(';')
-        useradatok = {'username': felhasznalo[0], 'password': felhasznalo[1]}
-        userek.append(user)
-print(userek)
-
-
-# A saját adatbázis létrehozása
-f = open(f"{useradatok(felhasznalo[0])}.txt", "a")
-f.write("1234")
-f.close()
-"""
-
-# felhasznalo[x] (pl. Bözsi) adati saját .json fájlba lesznek tárolva, pl. Bözsi.json

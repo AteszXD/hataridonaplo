@@ -38,12 +38,15 @@ def fomenu():
 
 def teendo_add():
     teendo_hozz = input("Adja meg a teendő leírását: ")
-    hatar = input("Adja meg a teendő határidejét (ÉÉÉÉ-HH-NN): ")
-    try:
-        teendo_hatar = datetime.datetime.strptime(hatar, "%Y-%m-%d").date()
-    except ValueError:
-        print("Érvénytelen dátumformátum. Kérjük, használja a ÉÉÉÉ-HH-NN formátumot.")
-        return
+
+    while True:
+        hatar = input("Adja meg a teendő határidejét (ÉÉÉÉ-HH-NN): ")
+        try:
+            teendo_hatar = datetime.datetime.strptime(hatar, "%Y-%m-%d").date()
+            break
+        except ValueError:
+            print("Érvénytelen dátum.")
+
     
     statusz = input("Adja meg a státuszt (függőben/kész): ").lower()
     while statusz != "függőben" and statusz != "kész":
@@ -105,11 +108,13 @@ def teendo_modosit():
 
     teendo_hozz = input("Adja meg a teendő leírását: ")
     hatar = input("Adja meg a teendő határidejét (ÉÉÉÉ-HH-NN): ")
-    try:
-        teendo_hatar = datetime.datetime.strptime(hatar, "%Y-%m-%d").date()
-    except ValueError:
-        print("Érvénytelen dátumformátum. Kérjük, használja a ÉÉÉÉ-HH-NN formátumot.")
-        return
+    while True:
+        hatar = input("Adja meg a teendő határidejét (ÉÉÉÉ-HH-NN): ")
+        try:
+            teendo_hatar = datetime.datetime.strptime(hatar, "%Y-%m-%d").date()
+            break
+        except ValueError:
+            print("Érvénytelen dátum.")
 
     statusz = input("Adja meg a státuszt (függőben/kész): ").lower()
     while statusz != "függőben" and statusz != "kész":
@@ -217,5 +222,3 @@ def surgos():
        
 if __name__ == "__main__":
     fomenu()
-
-# Ezt ki kéne majd szedni
