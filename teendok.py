@@ -107,7 +107,6 @@ def teendo_modosit():
         return
 
     teendo_hozz = input("Adja meg a teendő leírását: ")
-    hatar = input("Adja meg a teendő határidejét (ÉÉÉÉ-HH-NN): ")
     while True:
         hatar = input("Adja meg a teendő határidejét (ÉÉÉÉ-HH-NN): ")
         try:

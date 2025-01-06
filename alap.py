@@ -46,7 +46,26 @@ while sikereslogin == False:
                     user.user = username
                     teendokezelo.betolt(f"userek/{username}.json")
                 else:
-                    print("Helytelen felhasználónév, vagy jelszó. Próbálja Újra!")
+                    while True:
+                        resp = input("Ez a felhasználó nem létezik, szeretné létrehozni? (i/n): ")
+                        if resp == "i":
+
+                            with open(eleresiut, "a", encoding="utf-8") as f:
+                                f.write(f"{username};{password}\n")
+
+                            print("Köszönjük a regisztrációt!")
+                            createuserlibrary.konyvtarletrehozo(username)
+
+                            sikereslogin = True
+                            user.user = username
+                            break
+
+                        elif resp == "n":
+                            print("Helytelen felhasználónév, vagy jelszó. Próbálja Újra!")
+                            break
+
+                        else:
+                            print("Érvénytelen válasz, próbálja újra!")
 
 # Teendők, innen a teendok.py program megy
 teendok.fomenu()
