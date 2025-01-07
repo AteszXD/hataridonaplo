@@ -37,38 +37,39 @@ while sikereslogin == False:
         beirtadat = f"{username};{password}"
         with open(eleresiut, "r", encoding="utf-8") as adatbazis:
             sorok = adatbazis.readlines()
-            i = 0
+            
+        i = 0
+        while i < len(sorok) and sorok[i].strip() != beirtadat:
+            i += 1
 
-            while sorok[i].strip() != beirtadat:
-                i += 1
+        if i < len(sorok):
+            print(f"Sikeres bejelentkezés, üdvözöljük {username}!")
+            sikereslogin = True
+            user.user = username
+            teendokezelo.betolt(f"userek/{username}.json")
 
-            if sorok[i].strip() == beirtadat:
-                print(f"Sikeres bejelentkezés, üdvözöljük {username}!")
-                sikereslogin = True
-                user.user = username
-                teendokezelo.betolt(f"userek/{username}.json")
+        else:
+            while True:
 
-            else:        
-                while True:
-                    resp = input("Ez a felhasználó nem létezik, szeretné létrehozni? (i/n): ")
-                    if resp == "i":
+                resp = input("Ez a felhasználó nem létezik, szeretné létrehozni? (i/n): ").strip().lower()
+                if resp == "i":
+                    
+                    with open(eleresiut, "a", encoding="utf-8") as f:
+                        f.write(f"{username};{password}\n")
 
-                        with open(eleresiut, "a", encoding="utf-8") as f:
-                            f.write(f"{username};{password}\n")
+                    print("Köszönjük a regisztrációt!")
+                    createuserlibrary.konyvtarletrehozo(username)
 
-                        print("Köszönjük a regisztrációt!")
-                        createuserlibrary.konyvtarletrehozo(username)
+                    sikereslogin = True
+                    user.user = username
+                    break
 
-                        sikereslogin = True
-                        user.user = username
-                        break
+                elif resp == "n":
+                    print("Helytelen felhasználónév, vagy jelszó. Próbálja újra!")
+                    break
 
-                    elif resp == "n":
-                        print("Helytelen felhasználónév, vagy jelszó. Próbálja Újra!")
-                        break
-
-                    else:
-                        print("Érvénytelen válasz, próbálja újra!")
+                else:
+                    print("Érvénytelen válasz, próbálja újra!")
 
 # Teendők, innen a teendok.py program megy
 teendok.fomenu()
